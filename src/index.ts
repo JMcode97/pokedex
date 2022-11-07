@@ -1,7 +1,6 @@
-import app from "./app";
+import app from './app';
+import './database';
 
-const PORT = 8080;
-
-app.listen(PORT, () => {
-    console.log(`Server running on port:${PORT}...`)
+app.listen(app.get('port'), () => {
+    console.log(`Server running on port:${app.get('port')}...`);
 });
