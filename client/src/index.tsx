@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import NewProduct from './resources/pages/Products/NewProduct';
+import ProductsList from './resources/pages/Products/ProductsList';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <h1>Hello World</h1>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<ProductsList />}></Route>
+      <Route path='/new-product' element={<NewProduct />}></Route>
+    </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
