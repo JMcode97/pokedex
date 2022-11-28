@@ -1,28 +1,37 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Products } from '../../types';
 
 export default function ProductsList () {
 
+    // START GET PRODUCTS
     const api = 'http://localhost:8080';
-
-    const [ProductsList, setProductsList] = useState([]);
+    const [ProductsList, setProductsList] = useState<Products[]>([]);
+    const getProducts = async () => {
+        await axios.get(api + '/products')
+                   .then(res => setProductsList(res.data));
+    }
+    // END GET PRODUCTS
 
     useEffect(() => {
-        axios.get(api + '/products')
-             .then(res => setProductsList(res.data))
+        getProducts();
     }, [])
-
-    console.log(ProductsList)
 
     return (
         <>
-            <h1>Products list</h1>
+            <h1 
+            className='font-mono text-3xl text-red-500' >
+            Products list
+            </h1>
             <ul>
             {
-                ProductsList.map((item: any) => {
+                ProductsList.map(item => {
                     return (
                         <>
-                            <li>{item.title}</li>
+                            <li 
+                            key={item._id} >
+                            {item.title}
+                            </li>
                         </>
                     )
                 })
