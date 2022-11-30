@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import MainComponent from './resources/components/MainComponent';
 import NewProduct from './resources/pages/Products/NewProduct';
 import ProductsList from './resources/pages/Products/ProductsList';
 
@@ -12,10 +13,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <MainComponent>
     <Routes>
       <Route path='/' element={<ProductsList />}></Route>
       <Route path='/new-product' element={<NewProduct />}></Route>
     </Routes>
+    </MainComponent>    
     </BrowserRouter>
   </React.StrictMode>
 );
