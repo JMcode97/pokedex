@@ -7,3 +7,9 @@ export interface Products {
     createdAt?: DateTime,
     updatedAt?: DateTime,
 }
+
+export interface ProductsCard {
+    title: string,
+    price: number,
+    img: string,
+}
