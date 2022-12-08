@@ -4,11 +4,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import reportWebVitals from './reportWebVitals';
 import MainComponent from './resources/components/MainComponent';
-import NewProduct from './resources/pages/Products/NewProduct';
+import ProductForm from './resources/pages/Products/ProductForm';
 import ProductsList from './resources/pages/Products/ProductsList';
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
-import ProductCard from './resources/components/ProductCard';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,7 +19,8 @@ root.render(
     <ToastContainer />
     <Routes>
       <Route path='/' element={<ProductsList />}></Route>
-      <Route path='/new-product' element={<NewProduct />}></Route>
+      <Route path='/new-product' element={<ProductForm />}></Route>
+      <Route path='/update-product/:id' element={<ProductForm />}></Route>
     </Routes>
     </MainComponent>    
     </BrowserRouter>

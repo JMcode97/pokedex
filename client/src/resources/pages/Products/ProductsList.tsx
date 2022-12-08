@@ -1,18 +1,23 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductCard from '../../components/ProductCard';
 import { Products } from '../../types';
 
 export default function ProductsList () {
 
+    const navigate = useNavigate();
+
     // START GET PRODUCTS
     const api = 'http://localhost:8080';
     const [ProductsList, setProductsList] = useState<Products[]>([]);
     const getProducts = async () => {
-        await axios.get(api + '/products')
+        await axios.get<Products[]>(api + '/products')
                    .then(res => setProductsList(res.data));
     }
     // END GET PRODUCTS
+
+
 
     useEffect(() => {
         getProducts();
@@ -32,10 +37,11 @@ export default function ProductsList () {
         {
             ProductsList.map(item => {
                 return (
-                    <li> 
-                    <ProductCard 
+                    <li
                     key={item._id}
-                    img={'https://via.placeholder.com/450x300'}
+                    onClick={() => navigate('/update-product/' + item._id)} > 
+                    <ProductCard 
+                    img={'https://via.placeholder.com/300x200'}
                     title={item.title}
                     price={item.price}
                     />

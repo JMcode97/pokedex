@@ -1,15 +1,16 @@
 import axios from 'axios';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 import { Products } from '../../types';
 
-export default function NewProduct () {
-
-    const navigate = useNavigate();
+export default function ProductForm () {
 
     const api = 'http://localhost:8080';
+    const params = useParams();
+
+    console.log(params)
 
     const [Form, setForm] = useState<Products>({
         title: '',
