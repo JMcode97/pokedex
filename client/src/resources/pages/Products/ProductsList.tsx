@@ -1,12 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import ProductCard from '../../components/ProductCard';
 import { Products } from '../../types';
 
 export default function ProductsList () {
-
-    const navigate = useNavigate();
 
     // START GET PRODUCTS
     const api = 'http://localhost:8080';
@@ -38,12 +35,13 @@ export default function ProductsList () {
             ProductsList.map(item => {
                 return (
                     <li
-                    key={item._id}
-                    onClick={() => navigate('/update-product/' + item._id)} > 
+                    key={item._id} > 
                     <ProductCard 
+                    id={item._id}
                     img={'https://via.placeholder.com/300x200'}
                     title={item.title}
                     price={item.price}
+                    load={getProducts}
                     />
                     </li>
                 )
@@ -52,8 +50,6 @@ export default function ProductsList () {
         </ul>  
         </div>
         </div>
-            
-            
         </>
     )
 }
