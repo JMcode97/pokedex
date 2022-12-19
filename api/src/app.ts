@@ -6,7 +6,7 @@ import  productRoutes  from './routes/products.routes'
 
 const app = express();
 
-app.set('port', config.PORT || 8080);
+app.set('port', config.PORT);
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
