@@ -6,7 +6,7 @@ import { Products } from '../../types';
 export default function ProductsList () {
 
     // START GET PRODUCTS
-    const api = 'http://localhost:8080';
+    const api = 'https://e-commerce-api-du7d.onrender.com';
     const [ProductsList, setProductsList] = useState<Products[]>([]);
     const getProducts = async () => {
         await axios.get<Products[]>(api + '/products')

@@ -7,7 +7,7 @@ import { Params, Products } from '../../types';
 
 export default function ProductForm () {
 
-    const api = 'http://localhost:8080';
+    const api = 'https://e-commerce-api-du7d.onrender.com';
     const params = useParams<Params>();
 
     const [Form, setForm] = useState<Products>({
