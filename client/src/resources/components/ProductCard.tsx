@@ -5,7 +5,7 @@ import { ProductsCard } from "../types";
 
 export default function ProductCard ({ id, title, price, img, load }: ProductsCard) {
     
-    const api = 'http://localhost:8080';
+    const api = 'https://e-commerce-api-du7d.onrender.com';
 
     const navigate = useNavigate();
 
