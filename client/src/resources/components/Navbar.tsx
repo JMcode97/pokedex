@@ -12,10 +12,10 @@ export default function Navbar () {
             className='border border-teal-700' >
             <Link to={'/'} className='p-4'>Home</Link>
             </li>
-            <li
+            {/* <li
             className='border border-teal-700' >
             <Link to={'/new-product'} className='p-4' >New Product</Link>
-            </li>
+            </li> */}
             </ul>
             </div>
         </>

@@ -5,9 +5,9 @@ import { ToastContainer } from 'react-toastify';
 import reportWebVitals from './reportWebVitals';
 import MainComponent from './resources/components/MainComponent';
 import ProductForm from './resources/pages/Products/ProductForm';
-import ProductsList from './resources/pages/Products/ProductsList';
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
+import PokemonsList from './resources/pages/Products/PokemonsList';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,7 +18,7 @@ root.render(
     <MainComponent>
     <ToastContainer />
     <Routes>
-      <Route path='/' element={<ProductsList />}></Route>
+      <Route path='/' element={<PokemonsList />}></Route>
       <Route path='/new-product' element={<ProductForm />}></Route>
       <Route path='/update-product/:id' element={<ProductForm />}></Route>
     </Routes>
