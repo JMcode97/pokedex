@@ -6,7 +6,7 @@ import { Pokemon } from '../../types';
 
 export default function PokemonsList() {
 
-    const api = 'http://localhost:8080';
+    const api = 'http://192.168.0.180:8080';
     
     const [ Pokemon, setPokemon ] = useState<Pokemon>({
         id: '',
@@ -56,8 +56,23 @@ export default function PokemonsList() {
                     className='absolute' />
                     <span 
                     id='pokemon-name'
-                    className='absolute border border-red-500' >
+                    className='absolute text-center' >
                     {Pokemon.name}
+                    </span>
+                    <span 
+                    id='pokemon-id'
+                    className='absolute text-center' >
+                    {`#${Pokemon.id}`}
+                    </span>
+                    <span 
+                    id='pokemon-height'
+                    className='absolute text-center text-white' >
+                    {`Altura: ${Pokemon.height}`}
+                    </span>
+                    <span 
+                    id='pokemon-weight'
+                    className='absolute text-center text-white' >
+                    {`Peso: ${Pokemon.weight}`}
                     </span>
                 </div>
             </div>
