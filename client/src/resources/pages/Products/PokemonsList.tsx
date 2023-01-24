@@ -1,31 +1,37 @@
 import axios from 'axios';
-import { useEffect } from 'react';
-// import { Products } from '../../types';
+import { useEffect, useState } from 'react';
 import pokedex from '../../../images/pokedex.png'
 import '../../../styles.css'
+import { Pokemon } from '../../types';
 
 export default function PokemonsList() {
 
-    // START GET PRODUCTS
-    const api = 'https://pokeapi.co/api/v2';
-    // const [ProductsList, setProductsList] = useState<Products[]>([]);
-    // const getProducts = async () => {
-    //     await axios.get<Products[]>(api + '/products')
-    //                .then(res => setProductsList(res.data));
-    // }
-    // END GET PRODUCTS
+    const api = 'http://localhost:8080';
+    
+    const [ Pokemon, setPokemon ] = useState<Pokemon>({
+        id: '',
+        name: '',
+        height: '',
+        weight: '',
+        img: '',
+    });
 
-
-    const getPokemon = async () => {
-        axios.get(`${api}/pokemon/150`)
-        // .then(res => console.log(res.data))
+    const getRandomPokemon = async () => {
+        try {
+            await axios.get<Pokemon>(`${api}/randomPokemon`)
+            .then(res => setPokemon({...res.data}))
+        } catch (err: any) {
+            console.log(err.message)
+        }
     }
-        
-    console.log(Math.floor(Math.random() * 11))
 
     useEffect(() => {
-        // getProducts();
+        getRandomPokemon();
     }, [])
+
+    useEffect(() => {
+        console.table(Pokemon)
+    }, [Pokemon])
 
     return (
         <>
@@ -45,9 +51,14 @@ export default function PokemonsList() {
                     className='h-full m-auto object-scale-down'/>
                     <img
                     id='pokemon-img'
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png"
+                    src={Pokemon.img}
                     alt="pokemon"
                     className='absolute' />
+                    <span 
+                    id='pokemon-name'
+                    className='absolute border border-red-500' >
+                    {Pokemon.name}
+                    </span>
                 </div>
             </div>
         </>
