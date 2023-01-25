@@ -24,6 +24,13 @@ export interface ProductsCard {
     load?: any,
 }
 
+export interface AppButtonType {
+    placeHolder: string,
+    bgColor?: string,
+    fontColor?: string,
+    onClick?: () => void,
+}
+
 export type Params = {
     id: string,
 }

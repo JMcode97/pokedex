@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import pokedex from '../../../images/pokedex.png'
 import '../../../styles.css'
+import AppButton from '../../components/AppButton';
 import { Pokemon } from '../../types';
 
 export default function PokemonsList() {
@@ -13,8 +14,18 @@ export default function PokemonsList() {
         name: '',
         height: '',
         weight: '',
-        img: '',
+        img: (require('../../../images/grey-pokeball.png')),
     });
+
+    const getPreviousPokemon = async () => {
+        try {
+            let currentId = Pokemon.id;
+            await axios.get<Pokemon>(`${api}/previousPokemon/${currentId}`)
+            .then(res => setPokemon({...res.data}))
+        } catch (err: any) {
+            console.log(err.message)
+        }
+    }
 
     const getRandomPokemon = async () => {
         try {
@@ -25,23 +36,31 @@ export default function PokemonsList() {
         }
     }
 
+    const getNextPokemon = async () => {
+        try {
+            let currentId = Pokemon.id;
+            await axios.get<Pokemon>(`${api}/nextPokemon/${currentId}`)
+            .then(res => setPokemon({...res.data}))
+        } catch (err: any) {
+            console.log(err.message)
+        }
+    }
+
     useEffect(() => {
         getRandomPokemon();
     }, [])
-
-    useEffect(() => {
-        console.table(Pokemon)
-    }, [Pokemon])
 
     return (
         <>
             <div
             id='main-container' 
             className='mt-5 p-2 w-full'>
+                {/* TITLE */}
                 <h1
                 className='text-center pb-5 font-bold text-2xl text-red-600' >
                 POKÉDEX
                 </h1>
+                {/* POKÉDEX */}
                 <div
                 className='relative m-auto w-full' >
                     <img
@@ -57,7 +76,7 @@ export default function PokemonsList() {
                     <span 
                     id='pokemon-name'
                     className='absolute text-center' >
-                    {Pokemon.name}
+                    {Pokemon.name ?? ''}
                     </span>
                     <span 
                     id='pokemon-id'
@@ -75,6 +94,25 @@ export default function PokemonsList() {
                     {`Peso: ${Pokemon.weight}`}
                     </span>
                 </div>
+                {/* BUTTONS */}
+                <div 
+                className='flex justify-between m-auto mt-5 w-5/6' >
+                    <AppButton 
+                    onClick={getPreviousPokemon}
+                    placeHolder={'ANTERIOR'}
+                    bgColor={'bg-blue-300'} />
+
+                    <AppButton 
+                    onClick={getRandomPokemon}
+                    placeHolder={'RANDOM'}
+                    bgColor={'bg-green-300'} />
+
+                    <AppButton 
+                    onClick={getNextPokemon}
+                    placeHolder={'SIGUIENTE'}
+                    bgColor={'bg-red-300'} />
+                </div>
+
             </div>
         </>
     )
