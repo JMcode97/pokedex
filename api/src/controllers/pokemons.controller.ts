@@ -67,3 +67,24 @@ export const getPreviousPokemon: RequestHandler = async (req, res) => {
         res.json(err.message);
     }
 }
+
+export const getPokemon: RequestHandler = async (req, res) => {
+    try {
+        let pokemonName = req.params.name;
+
+        const pokemon = await pokeapi.pokemon.getPokemonByName(pokemonName.toString());
+
+        const pokemonObj = {
+            id: pokemon.id,
+            name: pokemon.name,
+            height: pokemon.height,
+            weight: pokemon.weight,
+            img: pokemon.sprites.front_default,
+        }
+
+        res.json(pokemonObj)
+
+    } catch (err: any) {
+        res.json(err.message);
+    }
+}

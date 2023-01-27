@@ -22,6 +22,7 @@ export default function PokemonsList() {
             let currentId = Pokemon.id;
             await axios.get<Pokemon>(`${api}/previousPokemon/${currentId}`)
             .then(res => setPokemon({...res.data}))
+
         } catch (err: any) {
             console.log(err.message)
         }
@@ -31,6 +32,7 @@ export default function PokemonsList() {
         try {
             await axios.get<Pokemon>(`${api}/randomPokemon`)
             .then(res => setPokemon({...res.data}))
+
         } catch (err: any) {
             console.log(err.message)
         }
@@ -41,6 +43,19 @@ export default function PokemonsList() {
             let currentId = Pokemon.id;
             await axios.get<Pokemon>(`${api}/nextPokemon/${currentId}`)
             .then(res => setPokemon({...res.data}))
+
+        } catch (err: any) {
+            console.log(err.message)
+        }
+    }
+
+    const getPokemon = async (e: React.KeyboardEvent<HTMLDivElement>) => {
+        try {
+            let event = e.target as HTMLInputElement;
+            if(e.key === 'Enter') {
+                await axios.get<Pokemon>(`${api}/pokemon/${event.value}`)
+                .then(res => setPokemon({...res.data}))
+            }
         } catch (err: any) {
             console.log(err.message)
         }
@@ -60,6 +75,13 @@ export default function PokemonsList() {
                 className='text-center pb-5 font-bold text-2xl text-red-600' >
                 POKÉDEX
                 </h1>
+                {/* SEARCH INPUT */}
+                <div
+                className='flex justify-center' >
+                    <input
+                    onKeyDown={(e) => getPokemon(e)}
+                    className='mb-5 p-2 w-4/6 border border-slate-400' />
+                </div>
                 {/* POKÉDEX */}
                 <div
                 className='relative m-auto w-full' >

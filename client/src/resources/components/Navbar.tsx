@@ -5,12 +5,12 @@ export default function Navbar () {
     return (
         <>
             <div
-            className=' bg-teal-600 p-12 flex justify-center' >
+            className=' bg-red-500 p-12 flex justify-center' >
             <ul
             className='inline-flex text-white justify-around w-2/6' >
             <li
-            className='border border-teal-700' >
-            <Link to={'/'} className='p-4'>Home</Link>
+            className='border border-red-700 bg-blue-600' >
+            <Link to={'/'} className='p-3'>Home</Link>
             </li>
             {/* <li
             className='border border-teal-700' >
