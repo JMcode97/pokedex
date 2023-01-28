@@ -72,11 +72,11 @@ export default function PokemonsList() {
 
     const getPokemon = async (e: React.KeyboardEvent<HTMLDivElement>) => {
         try {
-            if(Pokemon.id != '') {
-                setPokemon(PokemonInitState)
-            }
             let event = e.target as HTMLInputElement;
             if(e.key === 'Enter') {
+                if(Pokemon.id != '') {
+                    setPokemon(PokemonInitState)
+                }
                 await axios.get<Pokemon>(`${api}/pokemon/${event.value}`)
                 .then(res => setPokemon({...res.data}))
             }
