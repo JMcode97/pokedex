@@ -4,21 +4,36 @@ import pokedex from '../../../images/pokedex.png'
 import '../../../styles.css'
 import AppButton from '../../components/AppButton';
 import { Pokemon } from '../../types';
+import PuffLoader from "react-spinners/PuffLoader";
 
 export default function PokemonsList() {
 
     const api = 'http://192.168.0.180:8080';
     
     const [ Pokemon, setPokemon ] = useState<Pokemon>({
-        id: '',
+        id: '∞',
         name: '',
-        height: '',
-        weight: '',
-        img: (require('../../../images/grey-pokeball.png')),
+        height: '...',
+        weight: '...',
+        img: '',
     });
+
+    const PokemonInitState: Pokemon = {
+        id: '∞',
+        name: '',
+        height: '...',
+        weight: '...',
+        img: '',
+    };
+        
+
+    // (require('../../../images/grey-pokeball.png'))
 
     const getPreviousPokemon = async () => {
         try {
+            if(Pokemon.id != '') {
+                setPokemon(PokemonInitState)
+            }
             let currentId = Pokemon.id;
             await axios.get<Pokemon>(`${api}/previousPokemon/${currentId}`)
             .then(res => setPokemon({...res.data}))
@@ -30,6 +45,9 @@ export default function PokemonsList() {
 
     const getRandomPokemon = async () => {
         try {
+            if(Pokemon.id != '') {
+                setPokemon(PokemonInitState)
+            }
             await axios.get<Pokemon>(`${api}/randomPokemon`)
             .then(res => setPokemon({...res.data}))
 
@@ -40,6 +58,9 @@ export default function PokemonsList() {
 
     const getNextPokemon = async () => {
         try {
+            if(Pokemon.id != '') {
+                setPokemon(PokemonInitState)
+            }
             let currentId = Pokemon.id;
             await axios.get<Pokemon>(`${api}/nextPokemon/${currentId}`)
             .then(res => setPokemon({...res.data}))
@@ -51,6 +72,9 @@ export default function PokemonsList() {
 
     const getPokemon = async (e: React.KeyboardEvent<HTMLDivElement>) => {
         try {
+            if(Pokemon.id != '') {
+                setPokemon(PokemonInitState)
+            }
             let event = e.target as HTMLInputElement;
             if(e.key === 'Enter') {
                 await axios.get<Pokemon>(`${api}/pokemon/${event.value}`)
@@ -60,6 +84,14 @@ export default function PokemonsList() {
             console.log(err.message)
         }
     }
+
+    const loaderStyles: React.CSSProperties = {
+        position: 'absolute',
+        top: '31%',
+        left: '16%',
+        width: '20%',
+        height: '28%'
+      };
 
     useEffect(() => {
         getRandomPokemon();
@@ -85,21 +117,35 @@ export default function PokemonsList() {
                 {/* POKÉDEX */}
                 <div
                 className='relative m-auto w-full' >
+                    {
+                        Pokemon.img != '' ? (
+                            <>
+                                <img
+                                id='pokemon-img'
+                                src={Pokemon.img}
+                                alt="pokemon"
+                                className='absolute' />
+                                <span 
+                                id='pokemon-name'
+                                className='absolute text-center' >
+                                {Pokemon.name ?? ''}
+                                </span>
+                            </>
+                        ) : (
+                                <PuffLoader
+                                color={'#d63636'}
+                                loading={true}
+                                cssOverride={loaderStyles}
+                                size={'100%'}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                                />
+                        )}
                     <img
                     id='pokedex-img'
                     src={pokedex}
                     alt="pokédex"
                     className='h-full m-auto object-scale-down'/>
-                    <img
-                    id='pokemon-img'
-                    src={Pokemon.img}
-                    alt="pokemon"
-                    className='absolute' />
-                    <span 
-                    id='pokemon-name'
-                    className='absolute text-center' >
-                    {Pokemon.name ?? ''}
-                    </span>
                     <span 
                     id='pokemon-id'
                     className='absolute text-center' >
