@@ -12,8 +12,8 @@ export const getRandomPokemon: RequestHandler = async (req, res) => {
         const pokemonObj = {
             id: pokemon.id,
             name: pokemon.name,
-            height: pokemon.height,
-            weight: pokemon.weight,
+            height: `${pokemon.height/10} metros`,
+            weight: `${pokemon.weight/10} kilos`,
             img: pokemon.sprites.front_default,
         }
 
@@ -34,8 +34,8 @@ export const getNextPokemon: RequestHandler = async (req, res) => {
         const pokemonObj = {
             id: pokemon.id,
             name: pokemon.name,
-            height: pokemon.height,
-            weight: pokemon.weight,
+            height: `${pokemon.height/10} metros`,
+            weight: `${pokemon.weight/10} kilos`,
             img: pokemon.sprites.front_default,
         }
 
@@ -56,8 +56,8 @@ export const getPreviousPokemon: RequestHandler = async (req, res) => {
         const pokemonObj = {
             id: pokemon.id,
             name: pokemon.name,
-            height: pokemon.height,
-            weight: pokemon.weight,
+            height: `${pokemon.height/10} metros`,
+            weight: `${pokemon.weight/10} kilos`,
             img: pokemon.sprites.front_default,
         }
 
@@ -77,8 +77,8 @@ export const getPokemon: RequestHandler = async (req, res) => {
         const pokemonObj = {
             id: pokemon.id,
             name: pokemon.name,
-            height: pokemon.height,
-            weight: pokemon.weight,
+            height: `${pokemon.height/10} metros`,
+            weight: `${pokemon.weight/10} kilos`,
             img: pokemon.sprites.front_default,
         }
 
