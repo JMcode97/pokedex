@@ -36,7 +36,10 @@ export default function PokemonsList() {
             }
             let currentId = Pokemon.id;
             await axios.get<Pokemon>(`${api}/previousPokemon/${currentId}`)
-            .then(res => setPokemon({...res.data}))
+            .then(res => {
+                setPokemon({...res.data})
+                sessionStorage.setItem('pokemon', JSON.stringify(res.data))
+            })
 
         } catch (err: any) {
             console.log(err.message)
@@ -49,7 +52,10 @@ export default function PokemonsList() {
                 setPokemon(PokemonInitState)
             }
             await axios.get<Pokemon>(`${api}/randomPokemon`)
-            .then(res => setPokemon({...res.data}))
+            .then(res => {
+                setPokemon({...res.data})
+                sessionStorage.setItem('pokemon', JSON.stringify(res.data))
+            })
 
         } catch (err: any) {
             console.log(err.message)
@@ -63,7 +69,10 @@ export default function PokemonsList() {
             }
             let currentId = Pokemon.id;
             await axios.get<Pokemon>(`${api}/nextPokemon/${currentId}`)
-            .then(res => setPokemon({...res.data}))
+            .then(res => {
+                setPokemon({...res.data})
+                sessionStorage.setItem('pokemon', JSON.stringify(res.data))
+            })
 
         } catch (err: any) {
             console.log(err.message)
@@ -78,7 +87,10 @@ export default function PokemonsList() {
                     setPokemon(PokemonInitState)
                 }
                 await axios.get<Pokemon>(`${api}/pokemon/${event.value}`)
-                .then(res => setPokemon({...res.data}))
+                .then(res => {
+                    setPokemon({...res.data})
+                    sessionStorage.setItem('pokemon', JSON.stringify(res.data))
+                })
             }
         } catch (err: any) {
             console.log(err.message)
@@ -94,7 +106,11 @@ export default function PokemonsList() {
       };
 
     useEffect(() => {
-        getRandomPokemon();
+        if(sessionStorage.lenght == 0) {
+            getRandomPokemon();
+        }
+        let pokemon = JSON.parse(sessionStorage.getItem('pokemon')!);
+        setPokemon({...pokemon})
     }, [])
 
     return (
