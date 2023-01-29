@@ -106,7 +106,7 @@ export default function PokemonsList() {
       };
 
     useEffect(() => {
-        if(sessionStorage.lenght == 0) {
+        if(sessionStorage.getItem('pokemon') === '' || sessionStorage.getItem('pokemon') === null) {
             getRandomPokemon();
         }
         let pokemon = JSON.parse(sessionStorage.getItem('pokemon')!);
