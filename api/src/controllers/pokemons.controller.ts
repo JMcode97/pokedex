@@ -6,7 +6,7 @@ const pokeapi = new MainClient();
 
 export const getRandomPokemon: RequestHandler = async (req, res) => {
     try {
-        let randomId = Math.floor(Math.random() * 151);
+        let randomId = Math.floor(Math.random() * 152);
         const pokemon = await pokeapi.pokemon.getPokemonByName(randomId.toString());
 
         const pokemonObj = {

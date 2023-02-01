@@ -101,7 +101,8 @@ export default function PokemonsList() {
                 if(Pokemon.id !== '') {
                     setPokemon(PokemonInitState)
                 }
-                await axios.get<Pokemon>(`${api}/pokemon/${event.value}`)
+                let searchId = checkId(event.value)
+                await axios.get<Pokemon>(`${api}/pokemon/${searchId}`)
                 .then(res => {
                     setPokemon({...res.data})
                     sessionStorage.setItem('pokemon', JSON.stringify(res.data))
@@ -120,6 +121,18 @@ export default function PokemonsList() {
         width: '20%',
         height: '28%'
       };
+
+    const checkId = (id: any) => {
+        if(isNaN(id)) {
+            return id
+        }else {
+            if(id >= 1 && id <= 151) {
+                return id.toString()
+            }else {
+                return console.log('Solo puedes ingresar de 1 a 151')
+            }
+        }
+    }
 
     useEffect(() => {
         if(sessionStorage.getItem('pokemon') === '' || sessionStorage.getItem('pokemon') === null) {
