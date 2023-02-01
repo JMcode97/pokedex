@@ -20,7 +20,7 @@ export const getRandomPokemon: RequestHandler = async (req, res) => {
         res.json(pokemonObj)
 
     } catch (err: any) {
-        res.json(err.message);
+        res.status(404).json(err.message);
     }
 }
 
@@ -42,7 +42,7 @@ export const getNextPokemon: RequestHandler = async (req, res) => {
         res.json(pokemonObj)
 
     } catch (err: any) {
-        res.json(err.message);
+        res.status(404).json(err.message);
     }
 }
 
@@ -64,7 +64,7 @@ export const getPreviousPokemon: RequestHandler = async (req, res) => {
         res.json(pokemonObj)
 
     } catch (err: any) {
-        res.json(err.message);
+        res.status(404).json(err.message);
     }
 }
 
@@ -85,6 +85,6 @@ export const getPokemon: RequestHandler = async (req, res) => {
         res.json(pokemonObj)
 
     } catch (err: any) {
-        res.json(err.message);
+        res.status(404).json(err.message);
     }
 }

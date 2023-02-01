@@ -10,7 +10,7 @@ export default function PokemonsList() {
 
     const api = 'http://192.168.0.180:8080';
 
-    // const defaultImg = (require('../../../images/grey-pokeball.png'));
+    const defaultImg = (require('../../../images/grey-pokeball.png'));
     
     const [ Pokemon, setPokemon ] = useState<Pokemon>({
         id: '',
@@ -31,6 +31,18 @@ export default function PokemonsList() {
 
         return pokemonObject
     }, []);
+
+    const PokemonErrorState = useMemo(() => {
+        const pokemonObject: Pokemon = {
+            id: '∞',
+            name: 'No existe',
+            height: '...',
+            weight: '...',
+            img: defaultImg,
+        }
+
+        return pokemonObject
+    }, [defaultImg]);
 
     const getPreviousPokemon = async () => {
         try {
@@ -96,6 +108,7 @@ export default function PokemonsList() {
                 })
             }
         } catch (err: any) {
+            setPokemon(PokemonErrorState)
             console.log(err.message)
         }
     }
