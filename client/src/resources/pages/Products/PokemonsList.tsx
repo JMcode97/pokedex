@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import {  useEffect, useMemo, useState } from 'react';
 import pokedex from '../../../images/pokedex.png'
 import '../../../styles.css'
 import AppButton from '../../components/AppButton';
@@ -9,29 +9,32 @@ import PuffLoader from "react-spinners/PuffLoader";
 export default function PokemonsList() {
 
     const api = 'http://192.168.0.180:8080';
+
+    // const defaultImg = (require('../../../images/grey-pokeball.png'));
     
     const [ Pokemon, setPokemon ] = useState<Pokemon>({
-        id: '∞',
+        id: '',
         name: '',
-        height: '...',
-        weight: '...',
+        height: '',
+        weight: '',
         img: '',
     });
 
-    const PokemonInitState: Pokemon = {
-        id: '∞',
-        name: '',
-        height: '...',
-        weight: '...',
-        img: '',
-    };
-        
+    const PokemonInitState = useMemo(() => {
+        const pokemonObject: Pokemon = {
+            id: '∞',
+            name: '',
+            height: '...',
+            weight: '...',
+            img: '',
+        }
 
-    // (require('../../../images/grey-pokeball.png'))
+        return pokemonObject
+    }, []);
 
     const getPreviousPokemon = async () => {
         try {
-            if(Pokemon.id != '') {
+            if(Pokemon.id !== '') {
                 setPokemon(PokemonInitState)
             }
             let currentId = Pokemon.id;
@@ -48,7 +51,7 @@ export default function PokemonsList() {
 
     const getRandomPokemon = async () => {
         try {
-            if(Pokemon.id != '') {
+            if(Pokemon.id !== '') {
                 setPokemon(PokemonInitState)
             }
             await axios.get<Pokemon>(`${api}/randomPokemon`)
@@ -64,7 +67,7 @@ export default function PokemonsList() {
 
     const getNextPokemon = async () => {
         try {
-            if(Pokemon.id != '') {
+            if(Pokemon.id !== '') {
                 setPokemon(PokemonInitState)
             }
             let currentId = Pokemon.id;
@@ -83,7 +86,7 @@ export default function PokemonsList() {
         try {
             let event = e.target as HTMLInputElement;
             if(e.key === 'Enter') {
-                if(Pokemon.id != '') {
+                if(Pokemon.id !== '') {
                     setPokemon(PokemonInitState)
                 }
                 await axios.get<Pokemon>(`${api}/pokemon/${event.value}`)
@@ -107,11 +110,17 @@ export default function PokemonsList() {
 
     useEffect(() => {
         if(sessionStorage.getItem('pokemon') === '' || sessionStorage.getItem('pokemon') === null) {
-            getRandomPokemon();
+            axios.get<Pokemon>(`${api}/randomPokemon`)
+            .then(res => {
+                setPokemon({...res.data})
+                sessionStorage.setItem('pokemon', JSON.stringify(res.data))
+            })
         }
         let pokemon = JSON.parse(sessionStorage.getItem('pokemon')!);
         setPokemon({...pokemon})
     }, [])
+
+    
 
     return (
         <>
@@ -134,28 +143,28 @@ export default function PokemonsList() {
                 <div
                 className='relative m-auto w-full' >
                     {
-                        Pokemon.img != '' ? (
-                            <>
-                                <img
-                                id='pokemon-img'
-                                src={Pokemon.img}
-                                alt="pokemon"
-                                className='absolute' />
-                                <span 
-                                id='pokemon-name'
-                                className='absolute text-center' >
-                                {Pokemon.name ?? ''}
-                                </span>
-                            </>
+                        (Pokemon.img === '' || Pokemon.img === undefined) ? (
+                            <PuffLoader
+                            color={'#d63636'}
+                            loading={true}
+                            cssOverride={loaderStyles}
+                            size={'100%'}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                            />
                         ) : (
-                                <PuffLoader
-                                color={'#d63636'}
-                                loading={true}
-                                cssOverride={loaderStyles}
-                                size={'100%'}
-                                aria-label="Loading Spinner"
-                                data-testid="loader"
-                                />
+                            <>
+                            <img
+                            id='pokemon-img'
+                            src={Pokemon.img}
+                            alt="pokemon"
+                            className='absolute' />
+                            <span 
+                            id='pokemon-name'
+                            className='absolute text-center' >
+                            {Pokemon.name ?? 'cargando pokédex...'}
+                            </span>
+                            </> 
                         )}
                     <img
                     id='pokedex-img'
@@ -165,17 +174,17 @@ export default function PokemonsList() {
                     <span 
                     id='pokemon-id'
                     className='absolute text-center' >
-                    {`#${Pokemon.id}`}
+                    {`#${Pokemon.id ?? '∞'}`}
                     </span>
                     <span 
                     id='pokemon-height'
                     className='absolute text-center text-white' >
-                    {`Altura: ${Pokemon.height}`}
+                    {`Altura: ${Pokemon.height ?? 'cargando'}`}
                     </span>
                     <span 
                     id='pokemon-weight'
                     className='absolute text-center text-white' >
-                    {`Peso: ${Pokemon.weight}`}
+                    {`Peso: ${Pokemon.weight ?? 'cargando'}`}
                     </span>
                 </div>
                 {/* BUTTONS */}

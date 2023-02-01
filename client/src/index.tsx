@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import reportWebVitals from './reportWebVitals';
 import MainComponent from './resources/components/MainComponent';
-import ProductForm from './resources/pages/Products/ProductForm';
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
 import PokemonsList from './resources/pages/Products/PokemonsList';
@@ -19,8 +18,8 @@ root.render(
     <ToastContainer />
     <Routes>
       <Route path='/' element={<PokemonsList />}></Route>
-      <Route path='/new-product' element={<ProductForm />}></Route>
-      <Route path='/update-product/:id' element={<ProductForm />}></Route>
+      {/* <Route path='/new-product' element={<ProductForm />}></Route>
+      <Route path='/update-product/:id' element={<ProductForm />}></Route> */}
     </Routes>
     </MainComponent>    
     </BrowserRouter>
