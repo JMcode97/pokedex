@@ -94,20 +94,23 @@ export default function PokemonsList() {
         }
     }
 
-    const getPokemon = async (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const [ PokemonSearch, setPokemonSearch] = useState<string>('');
+    const handlePokemonSearch = (e: any) => setPokemonSearch(e.target.value);
+
+    const getPokemon = async (e: any) => {
         try {
-            let event = e.target as HTMLInputElement;
-            if(e.key === 'Enter') {
-                if(Pokemon.id !== '') {
-                    setPokemon(PokemonInitState)
+                e.preventDefault();
+                if(PokemonSearch.length > 0) {
+                    if(Pokemon.id !== '') {
+                        setPokemon(PokemonInitState)
+                    }
+                    let searchId = checkId(PokemonSearch)
+                    await axios.get<Pokemon>(`${api}/pokemon/${searchId}`)
+                    .then(res => {
+                        setPokemon({...res.data})
+                        sessionStorage.setItem('pokemon', JSON.stringify(res.data))
+                    })
                 }
-                let searchId = checkId(event.value)
-                await axios.get<Pokemon>(`${api}/pokemon/${searchId}`)
-                .then(res => {
-                    setPokemon({...res.data})
-                    sessionStorage.setItem('pokemon', JSON.stringify(res.data))
-                })
-            }
         } catch (err: any) {
             setPokemon(PokemonErrorState)
             console.log(err.message)
@@ -129,6 +132,7 @@ export default function PokemonsList() {
             if(id >= 1 && id <= 151) {
                 return id.toString()
             }else {
+                // Agregar mensaje a swal
                 return console.log('Solo puedes ingresar de 1 a 151')
             }
         }
@@ -159,12 +163,19 @@ export default function PokemonsList() {
                 POKÉDEX
                 </h1>
                 {/* SEARCH INPUT */}
-                <div
-                className='flex justify-center' >
-                    <input
-                    onKeyDown={(e) => getPokemon(e)}
-                    className='mb-5 p-2 w-4/6 border border-slate-400' />
-                </div>
+                <form
+                onSubmit={getPokemon}
+                className='relative m-auto mb-5 w-4/6' >
+                    <input 
+                    type="text"
+                    className='p-2 w-full border border-slate-400'
+                    onChange={handlePokemonSearch} />
+                    <button
+                    className='absolute right-0 bottom-0 top-0 p-2 bg-blue-600 text-white'
+                    type='submit' >
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
                 {/* POKÉDEX */}
                 <div
                 className='relative m-auto w-full' >
