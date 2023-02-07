@@ -171,7 +171,7 @@ export default function PokemonsList() {
                     className='p-2 w-full border border-slate-400'
                     onChange={handlePokemonSearch} />
                     <button
-                    className='absolute right-0 bottom-0 top-0 p-2 bg-blue-600 text-white'
+                    className='absolute right-0 bottom-0 top-0 p-2 px-5 bg-blue-600 text-white'
                     type='submit' >
                         <i className="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -215,12 +215,12 @@ export default function PokemonsList() {
                     </span>
                     <span 
                     id='pokemon-height'
-                    className='absolute text-center text-white' >
+                    className='absolute text-start text-white' >
                     {`Altura: ${Pokemon.height ?? 'cargando'}`}
                     </span>
                     <span 
                     id='pokemon-weight'
-                    className='absolute text-center text-white' >
+                    className='absolute text-start text-white' >
                     {`Peso: ${Pokemon.weight ?? 'cargando'}`}
                     </span>
                 </div>

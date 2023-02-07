@@ -1,33 +1,33 @@
 #pokemon-img {
     top: 30.5%;
-    left: 17.5%;
-    width: 17%;
+    left: 17%;
+    width: 18%;
 }
 
 #pokemon-name {
-    top: 53%;
+    top: 54.7%;
     left: 11.2%;
     width: 30%;
-    font-size: 3vw;
+    font-size: 1.6vw;
 }
 
 #pokemon-id {
-    bottom: 8%;
+    bottom: 8.5%;
     left: 13.8%;
     width: 15%;
-    font-size: 4vw;
+    font-size: 3.5vw;
 }
 
 #pokemon-height {
-    top: 34%;
-    right: 8.5%;
-    width: 30%;
-    font-size: 3vw;
+    top: 36%;
+    right: 7.8%;
+    width: 31%;
+    font-size: 1.6vw;
 }
 
 #pokemon-weight {
     top: 41%;
-    right: 8.5%;
-    width: 30%;
-    font-size: 3vw;
+    right: 7.8%;
+    width: 31%;
+    font-size: 1.6vw;
 }
